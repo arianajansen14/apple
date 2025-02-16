@@ -22,10 +22,10 @@
 
         // Load Blender model
         const loader = new THREE.GLTFLoader();
-        loader.load('https://arianajansen14.github.io/apple/the%20final%20apple.glb', function(gltf) {
-    const model = gltf.scene;
-    model.scale.set(1, 1, 1);
-    scene.add(model);
+        loader.load('YOUR_MODEL_URL.glb', function(gltf) {
+            const model = gltf.scene;
+            model.scale.set(1, 1, 1); // Adjust scale if needed
+            scene.add(model);
         });
 
         camera.position.z = 5;
@@ -39,3 +39,4 @@
     </script>
 </body>
 </html>
+
