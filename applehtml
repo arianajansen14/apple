@@ -22,7 +22,7 @@
 
         // Load Blender model
         const loader = new THREE.GLTFLoader();
-        loader.load('YOUR_MODEL_URL.glb', function(gltf) {
+        loader.load('https://arianajansen14.github.io/apple/final_apple.glb', function(gltf) {
             const model = gltf.scene;
             model.scale.set(1, 1, 1); // Adjust scale if needed
             scene.add(model);
