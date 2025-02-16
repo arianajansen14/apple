@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,7 +12,7 @@
     <script>
         // Scene setup
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(37, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         
         // Set the renderer to transparent background
         const renderer = new THREE.WebGLRenderer({ alpha: true });
@@ -32,10 +32,10 @@
             const model = gltf.scene;
             
             // Set the model's position (x, y, z)
-            model.position.set(0, -50, 0); // Change these values to move your model
+            model.position.set(0, -10, 0); // Change these values to move your model
 
             // Optional: Set the model's scale
-            model.scale.set(1, 1, 1); // Adjust scale
+            model.scale.set(0.5, 0.5, 0.5); // Adjust scale
 
             scene.add(model);
         }, undefined, function(error) {
