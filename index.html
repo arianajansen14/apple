@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Model Viewer</title>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+
+<!-- Include Three.js library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<!-- Include the GLTFLoader for loading .glb models -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/loaders/GLTFLoader.js"></script>
+
+<!-- Include OrbitControls for user interactivity -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/controls/OrbitControls.js"></script>
+
+<script>
+    // Scene, camera, and renderer setup
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Load the GLTF model
+    const loader = new THREE.GLTFLoader();
+    loader.load('https://arianajansen14.github.io/apple/final_apple.glb', function(gltf) {
+        const model = gltf.scene;
+
+        // Center the model and scale it
+        model.position.set(0, 0, 0); // Center model in the scene
+        model.scale.set(0.5, 0.5, 0.5); // Scale model to fit view
+
+        // Rotate the model to show the top
+        model.rotation.x = Math.PI / 2;
+
+        scene.add(model);
+
+        // Adjust camera to show the model from the top view
+        camera.position.set(0, 3, 5); // Camera above the model (y = 3, z = 5)
+        camera.lookAt(new THREE.Vector3(0, 0, 0)); // Make sure camera looks at model center
+    }, undefined, function(error) {
+        console.error('Error loading model:', error);
+    });
+
+    // Set up OrbitControls for interactive rotation and zooming
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.25;
+    controls.screenSpacePanning = false;
+
+    // Animation loop to render the scene
+    function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+    }
+    animate();
+</script>
+
+</body>
+</html>
