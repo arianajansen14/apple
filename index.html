@@ -10,47 +10,39 @@
 </head>
 <body style="margin: 0; overflow: hidden;">
     <script>
-       const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ alpha: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+        // Scene setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(37, window.innerWidth / window.innerHeight, 0.1, 1000);
+        
+        // Set the renderer to transparent background
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
 
-const loader = new THREE.GLTFLoader();
-loader.load('https://arianajansen14.github.io/apple/final_apple.glb', function(gltf) {
-    const model = gltf.scene;
+        // Set scene background to transparent (optional)
+        scene.background = null;
 
-    // Adjust the model position and rotation if needed
-    model.position.set(0, 0, 0); // Center the model
-    model.scale.set(0.2, 0.2, 0.2); // Adjust the scale
-    model.rotation.x = Math.PI / 2;  // Rotate the model to show the top
+        // Lighting
+        const light = new THREE.AmbientLight(0xffffff);
+        scene.add(light);
 
-    scene.add(model);
+        // Load Blender model
+        const loader = new THREE.GLTFLoader();
+        loader.load('https://arianajansen14.github.io/apple/final_apple.glb', function(gltf) {
+            const model = gltf.scene;
+            
+            // Set the model's position (x, y, z)
+            model.position.set(5, -50, 0); // Change these values to move your model
 
-    // Set up the camera to view the top of the model
-    camera.position.set(0, 10, 0); // Move the camera higher on the Y-axis
-    camera.lookAt(new THREE.Vector3(0, 0, 0)); // Make sure the camera faces the center of the model
-}, undefined, function(error) {
-    console.error('Error loading model:', error);
-});
+            // Optional: Set the model's scale
+            model.scale.set(0.75, 0.75, 0.75); // Adjust scale
 
-// OrbitControls for interactive rotation
-const controls = new THREE.OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
-controls.dampingFactor = 0.25;
-controls.screenSpacePanning = false;
-
-// Animation loop
-function animate() {
-    requestAnimationFrame(animate);
-    controls.update();
-    renderer.render(scene, camera);
-}
-animate();
-
+            scene.add(model);
+        }, undefined, function(error) {
+            console.error('Error loading model:', error);
         });
 
-        camera.position.z = 50;
+        camera.position.z = 100;
 
         // Create OrbitControls for camera movement
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
