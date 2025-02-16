@@ -21,7 +21,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/controls/OrbitControls.js"></script>
 
 <script>
-    // Create the scene, camera, and renderer
+    // Scene, camera, and renderer setup
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ alpha: true });
@@ -33,16 +33,16 @@
     loader.load('https://arianajansen14.github.io/apple/final_apple.glb', function(gltf) {
         const model = gltf.scene;
 
-        // Center the model in the scene
-        model.position.set(0, 0, 0); 
-        model.scale.set(0.5, 0.5, 0.5); // Scale model for better fit
+        // Center the model and scale it
+        model.position.set(0, 0, 0); // Center model in the scene
+        model.scale.set(0.5, 0.5, 0.5); // Scale model to fit view
 
         // Add model to the scene
         scene.add(model);
 
-        // Set up the camera to view the model from above and make sure the whole model fits
-        camera.position.set(0, 2, 4); // Camera position
-        camera.lookAt(new THREE.Vector3(0, 0, 0)); // Look at the center of the model
+        // Set up the camera to show the model from above
+        camera.position.set(0, 3, 5); // Camera above the model (y = 3, z = 5)
+        camera.lookAt(new THREE.Vector3(0, 0, 0)); // Ensure camera looks at model center
     }, undefined, function(error) {
         console.error('Error loading model:', error);
     });
@@ -56,7 +56,7 @@
     // Animation loop to render the scene
     function animate() {
         requestAnimationFrame(animate);
-        controls.update(); // Update controls
+        controls.update(); // Update the camera controls
         renderer.render(scene, camera);
     }
     animate();
