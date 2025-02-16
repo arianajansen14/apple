@@ -21,7 +21,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/controls/OrbitControls.js"></script>
 
 <script>
-    // Scene, camera, and renderer setup
+    // Create the scene, camera, and renderer
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ alpha: true });
@@ -33,35 +33,39 @@
     loader.load('https://arianajansen14.github.io/apple/final_apple.glb', function(gltf) {
         const model = gltf.scene;
 
-        // Center the model and scale it
-        model.position.set(0, 0, 0); // Center model in the scene
-        model.scale.set(0.5, 0.5, 0.5); // Scale model to fit view
-
-        // Rotate the model to show the top
-        model.rotation.x = Math.PI / 2;
-
+        // Ensure model is in the center
+        model.position.set(0, 0, 0); 
+        model.scale.set(0.5, 0.5, 0.5); // Adjust scale if needed
+        model.rotation.x = Math.PI / 2; // Rotate to show the top
         scene.add(model);
 
-        // Adjust camera to show the model from the top view
-        camera.position.set(0, 3, 5); // Camera above the model (y = 3, z = 5)
-        camera.lookAt(new THREE.Vector3(0, 0, 0)); // Make sure camera looks at model center
+        // Set up the camera to view the entire model
+        camera.position.set(0, 3, 5); // Position the camera above the model and a bit further back
+        camera.lookAt(new THREE.Vector3(0, 0, 0)); // Ensure camera is looking at the center of the model
     }, undefined, function(error) {
         console.error('Error loading model:', error);
     });
 
-    // Set up OrbitControls for interactive rotation and zooming
+    // Set up OrbitControls for rotation and zooming
     const controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.25;
-    controls.screenSpacePanning = false;
+    controls.enableDamping = true; // Smooth the camera movement
+    controls.dampingFactor = 0.25; // Adjust smoothness factor
+    controls.screenSpacePanning = false; // Disable panning in screen space
 
     // Animation loop to render the scene
     function animate() {
         requestAnimationFrame(animate);
-        controls.update();
+        controls.update(); // Update the camera controls
         renderer.render(scene, camera);
     }
     animate();
+
+    // Make the canvas resize correctly on window resize
+    window.addEventListener('resize', function() {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+    });
 </script>
 
 </body>
