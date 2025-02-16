@@ -36,13 +36,12 @@
         // Center the model and scale it (if necessary)
         model.position.set(0, 0, 0); // Position the model in the center of the scene
         model.scale.set(0.5, 0.5, 0.5); // Scale it down to fit
-        model.rotation.x = Math.PI / 2;  // Rotate the model to show the top
 
         scene.add(model);
 
         // Adjust the camera position to show the top of the model
-        camera.position.set(0, 10, 0); // Move the camera above the model
-        camera.lookAt(new THREE.Vector3(0, 0, 0)); // Make sure the camera looks at the center of the model
+        camera.position.set(0, 5, 5); // Move the camera above the model, along the diagonal
+        camera.lookAt(new THREE.Vector3(0, 0, 0)); // Ensure the camera is looking directly at the model's center
     }, undefined, function(error) {
         console.error('Error loading model:', error);
     });
