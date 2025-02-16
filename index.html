@@ -30,8 +30,15 @@
 
     // Load the GLTF model
     const loader = new THREE.GLTFLoader();
-    loader.load('https://github.com/arianajansen14/apple/raw/main/assets/final_apple.glb', function(gltf) {
-        const model = gltf.scene;
+loader.load('https://raw.githubusercontent.com/arianajansen14/apple/main/final_apple.glb', function(gltf) {
+    const model = gltf.scene;
+    model.scale.set(0.5, 0.5, 0.5);  // Adjust scale
+    model.position.set(0, 0, 0);  // Center the model
+    scene.add(model);
+    camera.position.z = 5;
+}, undefined, function(error) {
+    console.error('Error loading model:', error);
+});
 
         // Center the model and scale it
         model.position.set(0, 0, 0); // Center model in the scene
