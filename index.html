@@ -6,7 +6,6 @@
     <title>Three.js GLB Model</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>  <!-- Add OrbitControls.js -->
 </head>
 <body style="margin: 0; overflow: hidden;">
     <script>
@@ -32,28 +31,21 @@
             const model = gltf.scene;
             
             // Set the model's position (x, y, z)
-            model.position.set(0, -1, 0); // Change these values to move your model
+            model.position.set(0, 0, 0); // Change these values to move your model
 
             // Optional: Set the model's scale
-            model.scale.set(0.5, -0.5, 0.5); // Adjust scale
+            model.scale.set(1, 1, 1); // Adjust scale
 
             scene.add(model);
         }, undefined, function(error) {
             console.error('Error loading model:', error);
         });
 
-        camera.position.z = 0;
-
-        // Create OrbitControls for camera movement
-        const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true; // Enable smooth movement
-        controls.dampingFactor = 0.25; // Control the damping (smoothness of movement)
-        controls.screenSpacePanning = false; // Disable panning in screen space
+        camera.position.z = 5;
 
         // Animation loop
         function animate() {
             requestAnimationFrame(animate);
-            controls.update(); // Update the controls for smooth interaction
             renderer.render(scene, camera);
         }
         animate();
