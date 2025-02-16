@@ -33,34 +33,35 @@
     loader.load('https://arianajansen14.github.io/apple/final_apple.glb', function(gltf) {
         const model = gltf.scene;
 
-        // Ensure model is in the center
+        // Center the model in the scene
         model.position.set(0, 0, 0); 
-        model.scale.set(0.5, 0.5, 0.5); // Adjust scale if needed
-        model.rotation.x = Math.PI / 2; // Rotate to show the top
+        model.scale.set(0.5, 0.5, 0.5); // Scale model for better fit
+
+        // Add model to the scene
         scene.add(model);
 
-        // Set up the camera to view the entire model
-        camera.position.set(0, 3, 5); // Position the camera above the model and a bit further back
-        camera.lookAt(new THREE.Vector3(0, 0, 0)); // Ensure camera is looking at the center of the model
+        // Set up the camera to view the model from above and make sure the whole model fits
+        camera.position.set(0, 2, 4); // Camera position
+        camera.lookAt(new THREE.Vector3(0, 0, 0)); // Look at the center of the model
     }, undefined, function(error) {
         console.error('Error loading model:', error);
     });
 
     // Set up OrbitControls for rotation and zooming
     const controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true; // Smooth the camera movement
-    controls.dampingFactor = 0.25; // Adjust smoothness factor
+    controls.enableDamping = true; // Enable smooth camera movement
+    controls.dampingFactor = 0.25; // Smoothness factor
     controls.screenSpacePanning = false; // Disable panning in screen space
 
     // Animation loop to render the scene
     function animate() {
         requestAnimationFrame(animate);
-        controls.update(); // Update the camera controls
+        controls.update(); // Update controls
         renderer.render(scene, camera);
     }
     animate();
 
-    // Make the canvas resize correctly on window resize
+    // Handle resizing
     window.addEventListener('resize', function() {
         renderer.setSize(window.innerWidth, window.innerHeight);
         camera.aspect = window.innerWidth / window.innerHeight;
