@@ -12,7 +12,7 @@
     <script>
         // Scene setup
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(37, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 0.1, 1000);
         
         // Set the renderer to transparent background
         const renderer = new THREE.WebGLRenderer({ alpha: true });
@@ -42,7 +42,7 @@
             console.error('Error loading model:', error);
         });
 
-        camera.position.z = 100;
+        camera.position.z = 50;
 
         // Create OrbitControls for camera movement
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
