@@ -21,60 +21,30 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/controls/OrbitControls.js"></script>
 
 <script>
-    // Create the scene, camera, and renderer
+    // Set up the scene, camera, and renderer
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    // Load the GLTF model
+    // Load the 3D model (using the correct URL)
     const loader = new THREE.GLTFLoader();
-loader.load('https://raw.githubusercontent.com/arianajansen14/apple/main/final_apple.glb', function(gltf) {
-    const model = gltf.scene;
-    model.scale.set(0.5, 0.5, 0.5);  // Adjust scale
-    model.position.set(0, 0, 0);  // Center the model
-    scene.add(model);
-    camera.position.z = 5;
-}, undefined, function(error) {
-    console.error('Error loading model:', error);
-});
+    loader.load('https://raw.githubusercontent.com/arianajansen14/apple/main/final_apple.glb', function(gltf) {
+        const model = gltf.scene;
 
-        // Center the model and scale it
-        model.position.set(0, 0, 0); // Center model in the scene
-        model.scale.set(0.5, 0.5, 0.5); // Scale model to fit view
+        // Scale and center the model
+        model.scale.set(0.5, 0.5, 0.5); // Scale the model so it's visible
+        model.position.set(0, 0, 0);  // Position it in the center of the scene
+        scene.add(model); // Add the model to the scene
 
-        // Add model to the scene
-        scene.add(model);
-
-        // Set up the camera to show the model from above
-        camera.position.set(0, 3, 5); // Camera above the model (y = 3, z = 5)
-        camera.lookAt(new THREE.Vector3(0, 0, 0)); // Ensure camera looks at model center
+        // Set up a basic camera to view the model
+        camera.position.z = 5;
     }, undefined, function(error) {
         console.error('Error loading model:', error);
     });
 
-    // Set up OrbitControls for rotation and zooming
+    // OrbitControls for rotation and zoom
     const controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true; // Enable smooth camera movement
-    controls.dampingFactor = 0.25; // Smoothness factor
-    controls.screenSpacePanning = false; // Disable panning in screen space
-
-    // Animation loop to render the scene
-    function animate() {
-        requestAnimationFrame(animate);
-        controls.update(); // Update the camera controls
-        renderer.render(scene, camera);
-    }
-    animate();
-
-    // Handle resizing
-    window.addEventListener('resize', function() {
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-    });
-</script>
-
-</body>
-</html>
+    controls.enableDamping = true;
+    controls.dampingFactor 
